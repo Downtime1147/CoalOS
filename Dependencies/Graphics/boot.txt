@@ -1,0 +1,12 @@
+Esper-360 ©                                                                     ____    _____     ___     _                           TM                          yNNNNNh
+Firmware ver: v0.81                                                            |  __|  |  _  |   / _ \   | |            _____    ____                           yNNmmmmmmNd.
+BIOS ver: 1.05                                                                 | |     | | | |  | /_\ |  | |           |  _  |  |   _|                         hNNNmddddmmmmmd.
+Kernel ver: v2.33                                                              | |__   | |_| |  | | | |  | |__    []   | |_| |  _\  \                         dMNmdddddhdmmmmmm..
+----------------------                                                         |____|  |_____|  |_| |_|  |____|        |_____| |____|                      ..dMNmhsyhddddmmmNNmm..
+                                                                              ----------------------------------      ----------------                    ..dmmNmdhyhhhdddmNNNNNNmm.
+                                                                                                                                                          mmddmNmdddddmmmmmNNNNNNMM.
+                                                                                                                                                        ..MMmmmNddddmmmNNmmNNNNNNMM.
+                                                                                                                                                        .NNNNNmmmmmmmNNNNNNNNNNNNN.
+                                                                                                                                                         ..NNNNNNNNNNNNNNNNNNNNN..
+                                                                                                                                                           ..mNNNNNNNNNNNNNNNm..
+                                                                                                                                                                dMMMMMs
