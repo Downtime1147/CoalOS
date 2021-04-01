@@ -1,0 +1,27 @@
+|--- /
+  |
+  |--- home
+    |
+    |--- Hal
+      |
+      |--- Desktop
+        |
+        |--- CodingStuff
+          |
+          |--- Hal's AI
+            |
+            |--- Assets
+            |--- Hal.js
+          |
+          |--- Mem test
+      |
+      |--- Config
+    |
+    |--- root
+      |
+      |--- Desktop
+      |--- Config
+  |
+  |--- logs
+  |--- sys  
+|

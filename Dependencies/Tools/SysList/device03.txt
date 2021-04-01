@@ -1,0 +1,23 @@
+|--- /
+  |
+  |--- home
+    |
+    |--- Director #5
+      |
+      |--- Desktop
+        |
+        |--- Projects
+        |--- Management
+        |--- Email.exe
+        |--- Reminder.txt
+      |
+      |--- Config
+    |
+    |--- root
+      |
+      |--- Desktop
+      |--- Config
+  |
+  |--- logs
+  |--- sys
+|

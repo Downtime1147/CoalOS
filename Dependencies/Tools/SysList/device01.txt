@@ -1,0 +1,19 @@
+|- /
+  |
+  |--- home
+    |
+    |--- Dr.Langford
+      |
+      |--- Desktop
+      |--- Config
+        |
+        |--- Bank.txt
+    |
+    |--- root
+      |
+      |--- Desktop
+      |--- Config
+  |
+  |--- logs
+  |--- sys
+|

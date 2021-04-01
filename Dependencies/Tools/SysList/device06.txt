@@ -1,0 +1,26 @@
+|- /
+  |
+  |--- home
+    |
+    |--- AllGamesArcade8888
+      |
+      |--- FrontPage.png
+      |--- Games
+        |
+        |--- Snake.exe (ver 1.2.1)
+    |
+    |--- root
+      |
+      |--- Desktop
+      |--- Config
+        |
+        |--- GameBackups
+          |
+          |--- Snake.exe (ver 1.2.1)
+  |
+  |--- logs
+  |--- sys
+|
+
+
+! Notice ! : Special file "Snake.exe" located. Type "snake" to run

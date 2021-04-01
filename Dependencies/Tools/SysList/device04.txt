@@ -1,0 +1,22 @@
+|- /
+  |
+  |--- home
+    |--- CEO
+      |
+      |--- Desktop
+        |
+        |--- Email.exe
+        |--- Google.exe
+      |
+      |--- Config
+        |
+        |--- Bank.txt
+    |
+    |--- root
+      |
+      |--- Desktop
+      |--- Config
+  |
+  |--- logs
+  |--- sys
+|

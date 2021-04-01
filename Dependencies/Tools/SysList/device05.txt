@@ -1,0 +1,22 @@
+|- /
+  |
+  |--- home
+    |
+    |--- root
+      |
+      |--- Desktop
+	|
+        |--- IDoMyTaxes.mp4
+        |--- Mail.exe
+        |--- Shortcut > Calculator
+      |
+      |--- Config
+        |
+        |--- SecretGamesStach
+          |
+          |--- WhackYourBoss.exe
+  |
+  |--- logs
+  |--- sys
+|
+   
