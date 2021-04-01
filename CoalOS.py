@@ -95,7 +95,7 @@ def Cal(): # Displays real date and time
 #-------------------------------------------------------------------------------------------------------------------------------
 
 def News(): # Picks random headline from file
-    with open("Dependancies/Tools/headlines.txt") as f:
+    with open("Dependencies/Tools/headlines.txt") as f:
         lines = f.readlines()
         print()
         print(random.choice(lines))
@@ -107,7 +107,7 @@ def News(): # Picks random headline from file
 
 def SScrack(): # For 'cracking' ports that are vulnerable to SSH attacks
     print()
-    load('Dependancies/Graphics/sscrack.txt')
+    load('Dependencies/Graphics/sscrack.txt')
     print()
     print()
     ssInput()
@@ -136,8 +136,8 @@ def ssError():
     print()
     print("That is not a valid SScrack command. Type help to view valid commands")
     print()
-    winsound.PlaySound("Dependancies/Sound/error.wav", winsound.SND_FILENAME)
-    winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+    winsound.PlaySound("Dependencies/Sound/error.wav", winsound.SND_FILENAME)
+    winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
     ssInput()
 
 #-----------------------------------------------------------
@@ -257,7 +257,7 @@ def Logout():
     if sure == "y":
         print()
         print("Goodbye...")
-        winsound.PlaySound("Dependancies/Sound/OldWindows(Shutdown)", winsound.SND_FILENAME)
+        winsound.PlaySound("Dependencies/Sound/OldWindows(Shutdown)", winsound.SND_FILENAME)
         print()
         sys.exit()
     if sure == "n":
@@ -268,7 +268,7 @@ def Logout():
 
 def FTpea():
     print()
-    load('Dependancies/Graphics/ftpea.txt')
+    load('Dependencies/Graphics/ftpea.txt')
     print()
     print()
     ftInput()
@@ -348,7 +348,7 @@ def ftHack():
 def Overflow():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    load('Dependancies/Graphics/ftpea.txt')
+    load('Dependencies/Graphics/ftpea.txt')
     print()
     print()
     print("Begining FTP overflow attack on client ", ftIP, " ( MAC Address : ", ftMAC, " ) ...")
@@ -358,7 +358,7 @@ def Overflow():
     for i in bar(range(25), 'Gathering proccessing power : ', 20): # progress bar usage
         time.sleep(0.21)
         os.system('cls' if os.name == 'nt' else 'clear')
-        load('Dependancies/Graphics/ftpea.txt')
+        load('Dependencies/Graphics/ftpea.txt')
         print()
         print()
         print("Begining FTP overflow attack on client ", ftIP, " ( MAC Address : ", ftMAC, " ) ...")
@@ -396,8 +396,8 @@ def ftError():
     print()
     print("root ~ FTpea > That was not a valid FTpea command, type help for a list of commands")
     print()
-    winsound.PlaySound("Dependancies/Sound/error.wav", winsound.SND_FILENAME)
-    winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+    winsound.PlaySound("Dependencies/Sound/error.wav", winsound.SND_FILENAME)
+    winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
     ftInput()
 
 #-------------------------------------------------------------------------------------------------------------------------------
@@ -406,8 +406,8 @@ def Error(): # call when unexpected input is detected
     print()
     print("Command invalid. Type 'help' for a list of commands...")
     print()
-    winsound.PlaySound("Dependancies/Sound/error.wav", winsound.SND_FILENAME)
-    winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+    winsound.PlaySound("Dependencies/Sound/error.wav", winsound.SND_FILENAME)
+    winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
     uInput()
 
 #-------------------------------------------------------------------------------------------------------------------------------
@@ -451,7 +451,7 @@ def Scan(): # prints 'iwlist.txt'
     print("7 wireless connections found...")
     time.sleep(0.6)
     print()
-    load('Dependancies/Tools/iwlist.txt')
+    load('Dependencies/Tools/iwlist.txt')
     print()
     print()
     uInput()
@@ -470,8 +470,8 @@ def airConnect(): # login to random connections here
         if log2 == 'mnQwertrewQnm123':
             print()
             print("Attempting login...")
-            winsound.PlaySound("Dependancies/Sound/modem.wav", winsound.SND_FILENAME)
-            winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+            winsound.PlaySound("Dependencies/Sound/modem.wav", winsound.SND_FILENAME)
+            winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
             print()
             print("Login successful!")
             print()
@@ -481,8 +481,8 @@ def airConnect(): # login to random connections here
         if log2 == 'MmkwgUltbara98':
             print()
             print("Attempting login...")
-            winsound.PlaySound("Dependancies/Sound/modem.wav", winsound.SND_FILENAME)
-            winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+            winsound.PlaySound("Dependencies/Sound/modem.wav", winsound.SND_FILENAME)
+            winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
             print()
             print("Login successful!")
             print()
@@ -492,8 +492,8 @@ def airConnect(): # login to random connections here
         if log2 == 'ddid.No8817994':
             print()
             print("Attempting login...")
-            winsound.PlaySound("Dependancies/Sound/modem.wav", winsound.SND_FILENAME)
-            winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+            winsound.PlaySound("Dependencies/Sound/modem.wav", winsound.SND_FILENAME)
+            winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
             print()
             print("Login successful!")
             print()
@@ -503,8 +503,8 @@ def airConnect(): # login to random connections here
         if log2 == 'Discrom77681E4QR!':
             print()
             print("Attempting login...")
-            winsound.PlaySound("Dependancies/Sound/modem.wav", winsound.SND_FILENAME)
-            winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+            winsound.PlaySound("Dependencies/Sound/modem.wav", winsound.SND_FILENAME)
+            winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
             print()
             print("Login successful!")
             print()
@@ -514,8 +514,8 @@ def airConnect(): # login to random connections here
         if log2 == 'tunnelTrain2pltfrm6?!':
             print()
             print("Attempting login...")
-            winsound.PlaySound("Dependancies/Sound/modem.wav", winsound.SND_FILENAME)
-            winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+            winsound.PlaySound("Dependencies/Sound/modem.wav", winsound.SND_FILENAME)
+            winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
             print()
             print("Login successful!")
             print()
@@ -525,8 +525,8 @@ def airConnect(): # login to random connections here
         if log2 == 'AllTheGames911711':
             print()
             print("Attempting login...")
-            winsound.PlaySound("Dependancies/Sound/modem.wav", winsound.SND_FILENAME)
-            winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+            winsound.PlaySound("Dependencies/Sound/modem.wav", winsound.SND_FILENAME)
+            winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
             print()
             print("Login successful!")
             print()
@@ -675,8 +675,8 @@ def devInput():
 def devError():
     print()
     print("Invalid remote command, type 'help' for a list of commands...")
-    winsound.PlaySound("Dependancies/Sound/error.wav", winsound.SND_FILENAME)
-    winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_FILENAME|winsound.SND_ASYNC)
+    winsound.PlaySound("Dependencies/Sound/error.wav", winsound.SND_FILENAME)
+    winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_FILENAME|winsound.SND_ASYNC)
     print()
     devInput()
 
@@ -705,37 +705,37 @@ def SysList():
     print()
 
     if log2 == 'mnQwertrewQnm123':
-        load('Dependancies/Tools/SysList/device01.txt')
+        load('Dependencies/Tools/SysList/device01.txt')
         print()
         print()
         devInput()
 
     if log2 == 'MmkwgUltbara98':
-        load('Dependancies/Tools/SysList/device02.txt')
+        load('Dependencies/Tools/SysList/device02.txt')
         print()
         print()
         devInput()
 
     if log2 == 'ddid.No8817994':
-        load("Dependancies/Tools/SysList/device03.txt")
+        load("Dependencies/Tools/SysList/device03.txt")
         print()
         print()
         devInput()
 
     if log2 == 'Discrom77681E4QR!':
-        load("Dependancies/Tools/SysList/device04.txt")
+        load("Dependencies/Tools/SysList/device04.txt")
         print()
         print()
         devInput()
 
     if log2 == 'tunnelTrain2pltfrm6?!':
-        load("Dependancies/Tools/SysList/device05.txt")
+        load("Dependencies/Tools/SysList/device05.txt")
         print()
         print()
         devInput()
 
     if log2 == 'AllTheGames911711':
-        load("Dependancies/Tools/SysList/device06.txt")
+        load("Dependencies/Tools/SysList/device06.txt")
         print()
         print()
         devInput()
@@ -743,7 +743,7 @@ def SysList():
 #-----------------------------------------------------------------
 
 def Snakes():
-    os.system('python Dependancies/Tools/Snake.py')
+    os.system('python Dependencies/Tools/Snake.py')
     print()
     devInput()
 
@@ -751,7 +751,7 @@ def Snakes():
 
 def Nmap(): # 'scans' for available 'ports' in local network
     print()
-    load('Dependancies/Graphics/nmap.txt')
+    load('Dependencies/Graphics/nmap.txt')
     print()
     print()
     
@@ -762,14 +762,14 @@ def Nmap(): # 'scans' for available 'ports' in local network
 
     if map1 == '177.93.84.162.14':
         print()
-        load('Dependancies/Tools/Nmap/nmap1.txt')
+        load('Dependencies/Tools/Nmap/nmap1.txt')
         print()
         print()
         uInput()
 
     if map1 == '31.638.48.35.744':
         print()
-        load('Dependancies/Tools/Nmap/nmap2.txt')
+        load('Dependencies/Tools/Nmap/nmap2.txt')
         print()
         print()
         uInput()
@@ -844,8 +844,8 @@ def crack(): # main body of the airPlay() function...
 
 def boot(): # A cool startup cinematic
     os.system('cls' if os.name == 'nt' else 'clear')
-    winsound.PlaySound("Dependancies/Sound/warmup.wav", winsound.SND_FILENAME|winsound.SND_ASYNC)
-    load('Dependancies/Graphics/boot.txt')
+    winsound.PlaySound("Dependencies/Sound/warmup.wav", winsound.SND_FILENAME|winsound.SND_ASYNC)
+    load('Dependencies/Graphics/boot.txt')
     print()
     print()
 
@@ -945,10 +945,10 @@ def boot(): # A cool startup cinematic
     print()
     print("                                                  ! Setup Complete !")
     print()
-    winsound.PlaySound("Dependancies/Sound/OldWindows(Start).wav", winsound.SND_FILENAME)
+    winsound.PlaySound("Dependencies/Sound/OldWindows(Start).wav", winsound.SND_FILENAME)
     os.system('cls' if os.name == 'nt' else 'clear')
 
-    winsound.PlaySound("Dependancies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
+    winsound.PlaySound("Dependencies/Sound/idle.wav", winsound.SND_LOOP|winsound.SND_ASYNC)
     
     print()
     print("Coal OS - ver 1.4.6")
