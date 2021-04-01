@@ -15,10 +15,10 @@ and the 'help' list to learn the basics of this game.
 
 ---------------------------------------------------------------------------------------------------------------------------------------
 
-Part One : Getting started
+Getting started
 ---------------------------
 
-- On start, make sure it is in full screen otherwise some graphics might not look right!
+- On start, make sure it is in full screen otherwise some graphics might not look right! (If they don't then you might have to fiddle around with them in the boot() function)
 
 - Next, (if you haven't used this already) type 'help' to view a full list of commands that you can use.
 
