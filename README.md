@@ -1,6 +1,6 @@
 # CoalOS
 
-![Alt Text](Dependencies/C__Windows_py.exe 2021-04-03 15-42-41.gif)
+![Alt Text](github.com/Downtime1147/CoalOS/Dependencies/C__Windows_py.exe 2021-04-03 15-42-41.gif)
 
 Welcome, and thank you for taking the time to check out CoalOS !
 
