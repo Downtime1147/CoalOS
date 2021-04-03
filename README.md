@@ -1,5 +1,6 @@
 # CoalOS
 
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
 
 Welcome, and thank you for taking the time to check out CoalOS !
 
