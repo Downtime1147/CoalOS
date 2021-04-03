@@ -12,3 +12,7 @@ and the 'help' list to learn the basics of this game.
 
 
 ( ! This does play sound so you can wear headphones if you want ! )
+
+Notice : Some graphics may not display correctly on some devices. If this does occour, then you can change them
+out with whatever else you want or remove them entierly by removing/editing the single line of code that
+loads in the text document.
