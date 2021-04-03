@@ -14,4 +14,6 @@ If you need help, use the 'help' command or read the Help.txt file for more inst
 
 Notice : Some graphics may not display correctly on some devices. If this does occour, then you can change them
 out with whatever else you want or remove them entierly by removing/editing the single line of code that
-loads in the text document.
+loads in the document, and look like this:
+
+load('Path/to/file.txt')
