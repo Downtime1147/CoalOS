@@ -1,0 +1,13 @@
+
+  Esper-360                                 yNNNNNh
+  Firmware ver: v0.81                     yNNmmmmmmNd.
+  BIOS ver: 1.05                         hNNNmddddmmmmmd.
+  Kernel ver: v2.33                     dMNmdddddhdmmmmmm..
+ =======================              ..dMNmhsyhddddmmmNNmm..
+                                    ..dmmNmdhyhhhdddmNNNNNNmm.
+                                    mmddmNmdddddmmmmmNNNNNNMM.
+                                  ..MMmmmNddddmmmNNmmNNNNNNMM.
+                                   .NNNNNmmmmmmmNNNNNNNNNNNNN.
+                                   ..NNNNNNNNNNNNNNNNNNNNN..
+                                    ..mNNNNNNNNNNNNNNNm..
+                                        dMMMMMs
