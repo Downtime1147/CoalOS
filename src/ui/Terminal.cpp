@@ -3,7 +3,8 @@
 
 Terminal::Terminal(unsigned int width, unsigned int height)
     : m_Width(width), m_Height(height), m_Prompt(""), 
-      m_CursorBlinkTimer(0.0f), m_CursorVisible(true) {
+      m_CursorBlinkTimer(0.0f), m_CursorVisible(true),
+      m_TextColor(0.0f, 1.0f, 0.0f) {  // Default green
     m_MaxVisibleLines = static_cast<unsigned int>((height - PADDING_TOP * 2) / LINE_HEIGHT);
 }
 
@@ -28,7 +29,6 @@ void Terminal::Render(TextRenderer* renderer) {
     if (!renderer) return;
 
     float y = m_Height - PADDING_TOP;
-    glm::vec3 textColor(0.0f, 1.0f, 0.0f); // Green terminal text
 
     // Calculate how many lines to skip (for scrolling)
     size_t startLine = 0;
@@ -39,7 +39,7 @@ void Terminal::Render(TextRenderer* renderer) {
     // Render scrolled lines
     for (size_t i = startLine; i < m_Lines.size(); ++i) {
         y -= LINE_HEIGHT;
-        renderer->RenderText(m_Lines[i], PADDING_LEFT, y, 1.0f, textColor);
+        renderer->RenderText(m_Lines[i], PADDING_LEFT, y, 1.0f, m_TextColor);
     }
 
     // Render current input line with prompt
@@ -51,7 +51,7 @@ void Terminal::Render(TextRenderer* renderer) {
         inputLine += "_";
     }
     
-    renderer->RenderText(inputLine, PADDING_LEFT, y, 1.0f, textColor);
+    renderer->RenderText(inputLine, PADDING_LEFT, y, 1.0f, m_TextColor);
 }
 
 void Terminal::AddLine(const std::string& line) {
@@ -81,4 +81,8 @@ void Terminal::SubmitInput() {
 
 void Terminal::Clear() {
     m_Lines.clear();
+}
+
+void Terminal::SetTextColor(float r, float g, float b) {
+    m_TextColor = glm::vec3(r, g, b);
 }

@@ -30,6 +30,8 @@ void CommandParser::Initialize() {
         "restarts CoalOS");
     RegisterCommand("logout", [this](const auto& args) { CmdLogout(args); }, 
         "exit coalOS");
+    RegisterCommand("color", [this](const auto& args) { CmdColor(args); }, 
+        "change terminal text color");
 }
 
 void CommandParser::ParseAndExecute(const std::string& input) {
@@ -171,4 +173,88 @@ void CommandParser::CmdLogout(const std::vector<std::string>& args) {
     m_Terminal->AddLine("Goodbye...");
     m_Terminal->AddLine("");
     // TODO: Trigger exit through Engine
+}
+
+void CommandParser::CmdColor(const std::vector<std::string>& args) {
+    m_Terminal->AddLine("");
+    
+    if (args.size() < 2) {
+        m_Terminal->AddLine("Usage: color <preset|rgb>");
+        m_Terminal->AddLine("");
+        m_Terminal->AddLine("Presets:");
+        m_Terminal->AddLine("  green    - Classic green terminal");
+        m_Terminal->AddLine("  amber    - Amber monochrome");
+        m_Terminal->AddLine("  white    - White text");
+        m_Terminal->AddLine("  cyan     - Cyan blue");
+        m_Terminal->AddLine("  red      - Red text");
+        m_Terminal->AddLine("  purple   - Purple/magenta");
+        m_Terminal->AddLine("");
+        m_Terminal->AddLine("RGB: color rgb <r> <g> <b>");
+        m_Terminal->AddLine("  Values from 0.0 to 1.0");
+        m_Terminal->AddLine("  Example: color rgb 1.0 0.5 0.0");
+        m_Terminal->AddLine("");
+        return;
+    }
+    
+    std::string colorChoice = args[1];
+    std::transform(colorChoice.begin(), colorChoice.end(), colorChoice.begin(), ::tolower);
+    
+    if (colorChoice == "rgb" || colorChoice == "custom") {
+        if (args.size() < 5) {
+            m_Terminal->AddLine("Error: RGB requires 3 values");
+            m_Terminal->AddLine("Usage: color rgb <r> <g> <b>");
+            m_Terminal->AddLine("Values from 0.0 to 1.0");
+            m_Terminal->AddLine("");
+            return;
+        }
+        
+        try {
+            float r = std::stof(args[2]);
+            float g = std::stof(args[3]);
+            float b = std::stof(args[4]);
+            
+            // Clamp values
+            r = std::max(0.0f, std::min(1.0f, r));
+            g = std::max(0.0f, std::min(1.0f, g));
+            b = std::max(0.0f, std::min(1.0f, b));
+            
+            m_Terminal->SetTextColor(r, g, b);
+            m_Terminal->AddLine("Color set to RGB(" + 
+                std::to_string(r) + ", " + 
+                std::to_string(g) + ", " + 
+                std::to_string(b) + ")");
+        } catch (...) {
+            m_Terminal->AddLine("Error: Invalid RGB values");
+        }
+    }
+    else if (colorChoice == "green") {
+        m_Terminal->SetTextColor(0.0f, 1.0f, 0.0f);
+        m_Terminal->AddLine("Color set to green");
+    }
+    else if (colorChoice == "amber" || colorChoice == "orange") {
+        m_Terminal->SetTextColor(1.0f, 0.75f, 0.0f);
+        m_Terminal->AddLine("Color set to amber");
+    }
+    else if (colorChoice == "white") {
+        m_Terminal->SetTextColor(1.0f, 1.0f, 1.0f);
+        m_Terminal->AddLine("Color set to white");
+    }
+    else if (colorChoice == "cyan" || colorChoice == "blue") {
+        m_Terminal->SetTextColor(0.0f, 1.0f, 1.0f);
+        m_Terminal->AddLine("Color set to cyan");
+    }
+    else if (colorChoice == "red") {
+        m_Terminal->SetTextColor(1.0f, 0.0f, 0.0f);
+        m_Terminal->AddLine("Color set to red");
+    }
+    else if (colorChoice == "purple" || colorChoice == "magenta") {
+        m_Terminal->SetTextColor(1.0f, 0.0f, 1.0f);
+        m_Terminal->AddLine("Color set to purple");
+    }
+    else {
+        m_Terminal->AddLine("Unknown color preset: " + colorChoice);
+        m_Terminal->AddLine("Type 'color' for help");
+    }
+    
+    m_Terminal->AddLine("");
 }

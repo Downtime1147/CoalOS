@@ -42,6 +42,7 @@ private:
     void CmdNews(const std::vector<std::string>& args);
     void CmdRestart(const std::vector<std::string>& args);
     void CmdLogout(const std::vector<std::string>& args);
+    void CmdColor(const std::vector<std::string>& args);
 };
 
 #endif // COMMANDPARSER_H

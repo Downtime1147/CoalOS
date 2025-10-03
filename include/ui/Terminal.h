@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <deque>
+#include <glm/glm.hpp>
 #include "rendering/TextRenderer.h"
 
 class Terminal {
@@ -23,6 +24,10 @@ public:
     std::string GetCurrentInput() const { return m_CurrentInput; }
     void SetPrompt(const std::string& prompt) { m_Prompt = prompt; }
     void Clear();
+    
+    // Color management
+    void SetTextColor(float r, float g, float b);
+    glm::vec3 GetTextColor() const { return m_TextColor; }
 
 private:
     unsigned int m_Width;
@@ -31,6 +36,7 @@ private:
     std::deque<std::string> m_Lines;
     std::string m_CurrentInput;
     std::string m_Prompt;
+    glm::vec3 m_TextColor;  // RGB color
     
     unsigned int m_MaxVisibleLines;
     float m_CursorBlinkTimer;
