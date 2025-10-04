@@ -1,3 +1,0 @@
-/home/harvey/source/C-family/C++/CoalOS/build/_deps/glfw-subbuild/CMakeFiles/glfw-populate.dir
-/home/harvey/source/C-family/C++/CoalOS/build/_deps/glfw-subbuild/CMakeFiles/edit_cache.dir
-/home/harvey/source/C-family/C++/CoalOS/build/_deps/glfw-subbuild/CMakeFiles/rebuild_cache.dir

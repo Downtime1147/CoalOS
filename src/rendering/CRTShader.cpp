@@ -85,8 +85,8 @@ void main()
     // Vignette
     if (vignetteStrength > 0.0) {
         vec2 vignetteUV = uv * (1.0 - uv.yx);
-        float vignette = vignetteUV.x * vignetteUV.y * 15.0;
-        vignette = pow(vignette, vignetteStrength);
+        float vignette = vignetteUV.x * vignetteUV.y * 20.0;  // Changed from 15.0 to 20.0 (less dark)
+        vignette = pow(vignette, vignetteStrength * 0.5);     // Reduced strength multiplier
         col *= vignette;
     }
     
@@ -96,8 +96,8 @@ void main()
         col += glow * 0.3;
     }
     
-    // Screen flicker
-    float flicker = 0.95 + 0.05 * sin(time * 50.0);
+    // Screen flicker (reduced intensity)
+    float flicker = 0.98 + 0.02 * sin(time * 50.0);  // Changed from 0.95-1.05 to 0.98-1.0
     col *= flicker;
     
     // Random noise/grain
@@ -106,11 +106,7 @@ void main()
         col += noise * 0.1;
     }
     
-    // Slight color temperature shift (warm CRT glow)
-    col.r *= 1.02;
-    col.g *= 1.0;
-    col.b *= 0.98;
-    
+    // Output final color (removed warm color temperature shift for better visibility)
     FragColor = vec4(col, 1.0);
 }
 )";
@@ -119,9 +115,9 @@ CRTShader::CRTShader()
     : m_FBO(0), m_TextureColorbuffer(0), m_RBO(0), 
       m_QuadVAO(0), m_QuadVBO(0), m_ShaderProgram(0),
       m_Width(0), m_Height(0), m_Time(0.0f),
-      m_ScanlineIntensity(0.08f), m_Curvature(0.15f),
-      m_VignetteStrength(0.4f), m_ChromaticAberration(1.0f),
-      m_GlowIntensity(0.2f), m_NoiseAmount(0.05f), m_Enabled(true) {
+      m_ScanlineIntensity(0.03f), m_Curvature(0.05f),     // Reduced from 0.08 and 0.15
+      m_VignetteStrength(0.15f), m_ChromaticAberration(0.3f), // Reduced from 0.4 and 1.0
+      m_GlowIntensity(0.1f), m_NoiseAmount(0.02f), m_Enabled(true) { // Reduced from 0.2 and 0.05
 }
 
 CRTShader::~CRTShader() {

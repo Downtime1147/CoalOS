@@ -3,6 +3,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
 enum class GameMode {
     BOOTING,
@@ -32,6 +33,12 @@ public:
     void AddDevice(const std::string& ip, const NetworkDevice& device);
     NetworkDevice* GetDevice(const std::string& ip);
     bool DeviceExists(const std::string& ip) const;
+    
+    // Get all devices
+    std::vector<NetworkDevice> GetAllDevices() const;
+    
+    // Load devices from vector
+    void LoadDevices(const std::vector<NetworkDevice>& devices);
 
     // Connection state
     void SetConnectedDevice(const std::string& ip) { m_ConnectedDevice = ip; }

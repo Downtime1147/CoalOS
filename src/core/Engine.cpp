@@ -1,6 +1,6 @@
+#include <iostream>
 #include "core/Engine.h"
 #include "rendering/CRTShader.h"
-#include <iostream>
 #include <GLFW/glfw3.h>
 
 Engine::Engine(unsigned int width, unsigned int height)
@@ -39,9 +39,51 @@ bool Engine::Initialize() {
     m_CommandParser = std::make_unique<CommandParser>(m_FileSystem.get(), m_Terminal.get());
     m_CommandParser->Initialize();
     m_CommandParser->SetCRTShader(m_CRTShader.get());  // Give access to CRT shader
+    m_CommandParser->SetEngine(this);  // Give access to Engine for saving
 
     // Initialize game state
     m_GameState = std::make_unique<GameState>();
+    
+    // Initialize save manager
+    m_SaveManager = std::make_unique<SaveManager>();
+    
+    // Load settings first
+    if (Settings::SettingsExist("settings.json")) {
+        m_Settings.LoadFromFile("settings.json");
+    } else {
+        m_Settings = Settings::GetDefaults();
+        m_Settings.SaveToFile("settings.json");
+    }
+    
+    // Apply loaded settings
+    ApplySettings();
+    
+    // Load or create save data
+    std::vector<std::string> savedInventory;
+    std::vector<GameState::NetworkDevice> savedDevices;
+    
+    if (m_SaveManager->SaveExists("save.json")) {
+        std::cout << "Loading existing save..." << std::endl;
+        if (m_SaveManager->LoadGame("save.json", savedInventory, savedDevices)) {
+            // Restore inventory
+            for (const auto& file : savedInventory) {
+                m_FileSystem->AddFile(file);
+            }
+            // Restore network devices
+            m_GameState->LoadDevices(savedDevices);
+        } else {
+            std::cerr << "Failed to load save, generating new data..." << std::endl;
+            GenerateNewGameData();
+        }
+    } else {
+        std::cout << "No save found, generating new game data..." << std::endl;
+        GenerateNewGameData();
+    }
+
+    // Add initial boot message
+    m_Terminal->AddLine("CoalOS Boot Loader v1.0");
+    m_Terminal->AddLine("Initializing...");
+    m_Terminal->AddLine("");
 
     std::cout << "Engine initialized successfully" << std::endl;
     return true;
@@ -68,6 +110,66 @@ void Engine::Render() {
 
 void Engine::Shutdown() {
     std::cout << "Shutting down engine..." << std::endl;
+    
+    // Save settings and game data before shutdown
+    SaveSettings();
+    SaveGameData();
+}
+
+void Engine::GenerateNewGameData() {
+    // Generate random network devices
+    auto devices = SaveManager::GenerateRandomNetworks(20);
+    m_GameState->LoadDevices(devices);
+    
+    // Save initial data
+    SaveGameData();
+}
+
+void Engine::SaveGameData() {
+    if (!m_SaveManager || !m_FileSystem || !m_GameState) {
+        return;
+    }
+    
+    std::vector<std::string> inventory = m_FileSystem->ListFiles();
+    std::vector<GameState::NetworkDevice> devices = m_GameState->GetAllDevices();
+    
+    m_SaveManager->SaveGame("save.json", inventory, devices);
+}
+
+void Engine::SaveSettings() {
+    // Collect current settings from components
+    m_Settings.textColor = m_Terminal->GetTextColor();
+    m_Settings.typewriterSpeed = 50.0f; // Terminal doesn't expose this currently
+    
+    if (m_CRTShader) {
+        m_Settings.crtEnabled = m_CRTShader->IsEnabled();
+        // CRT shader doesn't expose getters, so settings are already stored in m_Settings
+    }
+    
+    m_Settings.SaveToFile("settings.json");
+}
+
+void Engine::ApplySettings() {
+    // Apply text color
+    if (m_Terminal) {
+        m_Terminal->SetTextColor(m_Settings.textColor.r, m_Settings.textColor.g, m_Settings.textColor.b);
+    }
+    
+    // Apply typewriter speed
+    if (m_Terminal) {
+        m_Terminal->SetTypewriterSpeed(m_Settings.typewriterSpeed);
+    }
+    
+    // Apply CRT settings
+    if (m_CRTShader) {
+        m_CRTShader->SetEnabled(m_Settings.crtEnabled);
+        m_CRTShader->SetScanlineIntensity(m_Settings.scanlineIntensity);
+        m_CRTShader->SetCurvature(m_Settings.curvature);
+        m_CRTShader->SetVignetteStrength(m_Settings.vignetteStrength);
+        m_CRTShader->SetChromaticAberration(m_Settings.chromaticAberration);
+        m_CRTShader->SetGlowIntensity(m_Settings.glowIntensity);
+        m_CRTShader->SetNoiseAmount(m_Settings.noiseAmount);
+    }
 }
 
 void Engine::OnResize(int width, int height) {

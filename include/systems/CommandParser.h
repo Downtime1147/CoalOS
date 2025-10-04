@@ -9,6 +9,7 @@
 class FileSystem;
 class Terminal;
 class CRTShader;
+class Engine;
 
 class CommandParser {
 public:
@@ -23,11 +24,13 @@ public:
     
     // Give access to CRT shader through Engine
     void SetCRTShader(CRTShader* shader) { m_CRTShader = shader; }
+    void SetEngine(Engine* engine) { m_Engine = engine; }
 
 private:
     FileSystem* m_FileSystem;
     Terminal* m_Terminal;
     CRTShader* m_CRTShader;
+    Engine* m_Engine;
     
     struct CommandInfo {
         CommandFunc function;
@@ -50,6 +53,8 @@ private:
     void CmdColor(const std::vector<std::string>& args);
     void CmdCRT(const std::vector<std::string>& args);
     void CmdSpeed(const std::vector<std::string>& args);
+    void CmdSave(const std::vector<std::string>& args);
+    void CmdReset(const std::vector<std::string>& args);
 };
 
 #endif // COMMANDPARSER_H

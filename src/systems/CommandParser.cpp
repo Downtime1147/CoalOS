@@ -1,3 +1,4 @@
+#include "core/Engine.h"
 #include "systems/CommandParser.h"
 #include "systems/FileSystem.h"
 #include "ui/Terminal.h"
@@ -7,7 +8,7 @@
 #include <ctime>
 
 CommandParser::CommandParser(FileSystem* fs, Terminal* terminal)
-    : m_FileSystem(fs), m_Terminal(terminal), m_CRTShader(nullptr) {
+    : m_FileSystem(fs), m_Terminal(terminal), m_CRTShader(nullptr), m_Engine(nullptr) {
 }
 
 CommandParser::~CommandParser() {
@@ -37,6 +38,8 @@ void CommandParser::Initialize() {
         "toggle or adjust CRT effect");
     RegisterCommand("speed", [this](const auto& args) { CmdSpeed(args); }, 
         "adjust typewriter text speed");
+    RegisterCommand("save", [this](const auto& args) { CmdSave(args); }, 
+        "save current game state");
 }
 
 void CommandParser::ParseAndExecute(const std::string& input) {
@@ -113,6 +116,21 @@ void CommandParser::CmdLs(const std::vector<std::string>& args) {
         fileList += " ]";
         m_Terminal->AddLine(fileList);
     }
+    m_Terminal->AddLine("");
+}
+
+void CommandParser::CmdSave(const std::vector<std::string>& args) {
+    m_Terminal->AddLine("");
+    
+    if (!m_Engine) {
+        m_Terminal->AddLine("Error: Save system not available");
+        m_Terminal->AddLine("");
+        return;
+    }
+    
+    m_Terminal->AddLineWithTypewriter("Saving game state...", 40.0f);
+    m_Engine->SaveGameData();
+    m_Terminal->AddLine("Game saved successfully!");
     m_Terminal->AddLine("");
 }
 
