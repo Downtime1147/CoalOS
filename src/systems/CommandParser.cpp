@@ -1,12 +1,13 @@
 #include "systems/CommandParser.h"
 #include "systems/FileSystem.h"
 #include "ui/Terminal.h"
+#include "rendering/CRTShader.h"
 #include <sstream>
 #include <algorithm>
 #include <ctime>
 
 CommandParser::CommandParser(FileSystem* fs, Terminal* terminal)
-    : m_FileSystem(fs), m_Terminal(terminal) {
+    : m_FileSystem(fs), m_Terminal(terminal), m_CRTShader(nullptr) {
 }
 
 CommandParser::~CommandParser() {
@@ -32,6 +33,10 @@ void CommandParser::Initialize() {
         "exit coalOS");
     RegisterCommand("color", [this](const auto& args) { CmdColor(args); }, 
         "change terminal text color");
+    RegisterCommand("crt", [this](const auto& args) { CmdCRT(args); }, 
+        "toggle or adjust CRT effect");
+    RegisterCommand("speed", [this](const auto& args) { CmdSpeed(args); }, 
+        "adjust typewriter text speed");
 }
 
 void CommandParser::ParseAndExecute(const std::string& input) {
@@ -108,6 +113,113 @@ void CommandParser::CmdLs(const std::vector<std::string>& args) {
         fileList += " ]";
         m_Terminal->AddLine(fileList);
     }
+    m_Terminal->AddLine("");
+}
+
+void CommandParser::CmdCRT(const std::vector<std::string>& args) {
+    if (!m_CRTShader) {
+        m_Terminal->AddLine("");
+        m_Terminal->AddLine("Error: CRT shader not available");
+        m_Terminal->AddLine("");
+        return;
+    }
+    
+    m_Terminal->AddLine("");
+    
+    if (args.size() < 2) {
+        m_Terminal->AddLine("CRT Effect Controls:");
+        m_Terminal->AddLine("");
+        m_Terminal->AddLine("  crt on/off        - Toggle effect");
+        m_Terminal->AddLine("  crt scanline <n>  - Scanline intensity (0.0-1.0)");
+        m_Terminal->AddLine("  crt curve <n>     - Screen curvature (0.0-1.0)");
+        m_Terminal->AddLine("  crt vignette <n>  - Vignette strength (0.0-1.0)");
+        m_Terminal->AddLine("  crt glow <n>      - Glow intensity (0.0-1.0)");
+        m_Terminal->AddLine("  crt noise <n>     - Noise amount (0.0-1.0)");
+        m_Terminal->AddLine("  crt chroma <n>    - Chromatic aberration (0.0-2.0)");
+        m_Terminal->AddLine("");
+        m_Terminal->AddLine("Current: " + std::string(m_CRTShader->IsEnabled() ? "ON" : "OFF"));
+        m_Terminal->AddLine("");
+        return;
+    }
+    
+    std::string option = args[1];
+    std::transform(option.begin(), option.end(), option.begin(), ::tolower);
+    
+    if (option == "on") {
+        m_CRTShader->SetEnabled(true);
+        m_Terminal->AddLine("CRT effect enabled");
+    }
+    else if (option == "off") {
+        m_CRTShader->SetEnabled(false);
+        m_Terminal->AddLine("CRT effect disabled");
+    }
+    else if (args.size() >= 3) {
+        try {
+            float value = std::stof(args[2]);
+            
+            if (option == "scanline") {
+                m_CRTShader->SetScanlineIntensity(value);
+                m_Terminal->AddLine("Scanline intensity set to " + std::to_string(value));
+            }
+            else if (option == "curve") {
+                m_CRTShader->SetCurvature(value);
+                m_Terminal->AddLine("Screen curvature set to " + std::to_string(value));
+            }
+            else if (option == "vignette") {
+                m_CRTShader->SetVignetteStrength(value);
+                m_Terminal->AddLine("Vignette strength set to " + std::to_string(value));
+            }
+            else if (option == "glow") {
+                m_CRTShader->SetGlowIntensity(value);
+                m_Terminal->AddLine("Glow intensity set to " + std::to_string(value));
+            }
+            else if (option == "noise") {
+                m_CRTShader->SetNoiseAmount(value);
+                m_Terminal->AddLine("Noise amount set to " + std::to_string(value));
+            }
+            else if (option == "chroma") {
+                m_CRTShader->SetChromaticAberration(value);
+                m_Terminal->AddLine("Chromatic aberration set to " + std::to_string(value));
+            }
+            else {
+                m_Terminal->AddLine("Unknown CRT option: " + option);
+            }
+        } catch (...) {
+            m_Terminal->AddLine("Error: Invalid value");
+        }
+    }
+    else {
+        m_Terminal->AddLine("Usage: crt <option> <value>");
+    }
+    
+    m_Terminal->AddLine("");
+}
+
+void CommandParser::CmdSpeed(const std::vector<std::string>& args) {
+    m_Terminal->AddLine("");
+    
+    if (args.size() < 2) {
+        m_Terminal->AddLine("Usage: speed <characters per second>");
+        m_Terminal->AddLine("Examples:");
+        m_Terminal->AddLine("  speed 20    - Slow typewriter");
+        m_Terminal->AddLine("  speed 50    - Normal (default)");
+        m_Terminal->AddLine("  speed 100   - Fast");
+        m_Terminal->AddLine("  speed 1000  - Instant");
+        m_Terminal->AddLine("");
+        return;
+    }
+    
+    try {
+        float speed = std::stof(args[1]);
+        if (speed < 1.0f) speed = 1.0f;
+        if (speed > 10000.0f) speed = 10000.0f;
+        
+        m_Terminal->SetTypewriterSpeed(speed);
+        m_Terminal->AddLine("Typewriter speed set to " + std::to_string(speed) + " chars/sec");
+    } catch (...) {
+        m_Terminal->AddLine("Error: Invalid speed value");
+    }
+    
     m_Terminal->AddLine("");
 }
 

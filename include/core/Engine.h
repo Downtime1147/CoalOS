@@ -4,11 +4,14 @@
 #include <memory>
 #include <string>
 #include "rendering/TextRenderer.h"
+#include "rendering/CRTShader.h"
 #include "ui/Terminal.h"
 #include "ui/AsciiArt.h"
 #include "systems/CommandParser.h"
 #include "systems/FileSystem.h"
 #include "core/GameState.h"
+
+class CRTShader;
 
 class Engine {
 public:
@@ -29,6 +32,7 @@ private:
 
     std::unique_ptr<TextRenderer> m_TextRenderer;
     std::unique_ptr<Terminal> m_Terminal;
+    std::unique_ptr<CRTShader> m_CRTShader;
     std::unique_ptr<CommandParser> m_CommandParser;
     std::unique_ptr<FileSystem> m_FileSystem;
     std::unique_ptr<GameState> m_GameState;

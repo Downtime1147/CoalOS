@@ -1,0 +1,14 @@
+# Target labels
+ freetype-populate
+# Source files and their labels
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/CMakeFiles/freetype-populate
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/CMakeFiles/freetype-populate.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/CMakeFiles/freetype-populate-complete.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-build.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-configure.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-download.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-install.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-mkdir.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-patch.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-test.rule
+/home/harvey/source/C-family/C++/CoalOS/build/_deps/freetype-subbuild/freetype-populate-prefix/src/freetype-populate-stamp/freetype-populate-update.rule

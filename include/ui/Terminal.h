@@ -21,6 +21,11 @@ public:
     void DeleteChar();
     void SubmitInput();
     
+    // Typewriter effect
+    void AddLineWithTypewriter(const std::string& line, float charsPerSecond = 50.0f);
+    void SetTypewriterSpeed(float charsPerSecond) { m_TypewriterSpeed = charsPerSecond; }
+    bool IsTyping() const { return m_IsTyping; }
+    
     std::string GetCurrentInput() const { return m_CurrentInput; }
     void SetPrompt(const std::string& prompt) { m_Prompt = prompt; }
     void Clear();
@@ -37,6 +42,14 @@ private:
     std::string m_CurrentInput;
     std::string m_Prompt;
     glm::vec3 m_TextColor;  // RGB color
+    
+    // Typewriter effect state
+    bool m_IsTyping;
+    std::string m_TypewriterBuffer;
+    std::string m_CurrentTypingLine;
+    float m_TypewriterTimer;
+    float m_TypewriterSpeed;  // characters per second
+    size_t m_TypewriterIndex;
     
     unsigned int m_MaxVisibleLines;
     float m_CursorBlinkTimer;

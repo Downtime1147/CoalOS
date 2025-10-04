@@ -1,4 +1,5 @@
 #include "core/Engine.h"
+#include "rendering/CRTShader.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
 
@@ -14,8 +15,15 @@ bool Engine::Initialize() {
 
     // Initialize text renderer
     m_TextRenderer = std::make_unique<TextRenderer>(m_Width, m_Height);
-    if (!m_TextRenderer->Initialize("assets/fonts/monospace.ttf", 16)) {
+    if (!m_TextRenderer->Initialize("assets/fonts/monospace.ttf", 20)) {  // Changed from 16 to 20
         std::cerr << "Failed to initialize text renderer" << std::endl;
+        return false;
+    }
+    
+    // Initialize CRT shader
+    m_CRTShader = std::make_unique<CRTShader>();
+    if (!m_CRTShader->Initialize(m_Width, m_Height)) {
+        std::cerr << "Failed to initialize CRT shader" << std::endl;
         return false;
     }
 
@@ -30,14 +38,10 @@ bool Engine::Initialize() {
     // Initialize command parser
     m_CommandParser = std::make_unique<CommandParser>(m_FileSystem.get(), m_Terminal.get());
     m_CommandParser->Initialize();
+    m_CommandParser->SetCRTShader(m_CRTShader.get());  // Give access to CRT shader
 
     // Initialize game state
     m_GameState = std::make_unique<GameState>();
-
-    // Add initial boot message
-    m_Terminal->AddLine("CoalOS Boot Loader v1.0");
-    m_Terminal->AddLine("Initializing...");
-    m_Terminal->AddLine("");
 
     std::cout << "Engine initialized successfully" << std::endl;
     return true;
@@ -52,8 +56,14 @@ void Engine::Update(float deltaTime) {
 }
 
 void Engine::Render() {
+    // Begin rendering to CRT framebuffer
+    m_CRTShader->BeginRender();
+    
     // Render terminal
     m_Terminal->Render(m_TextRenderer.get());
+    
+    // Apply CRT effect
+    m_CRTShader->EndRender();
 }
 
 void Engine::Shutdown() {
@@ -65,6 +75,9 @@ void Engine::OnResize(int width, int height) {
     m_Height = height;
     if (m_TextRenderer) {
         m_TextRenderer->UpdateProjection(width, height);
+    }
+    if (m_CRTShader) {
+        m_CRTShader->Resize(width, height);
     }
 }
 
@@ -110,26 +123,26 @@ void Engine::ProcessBootSequence(float deltaTime) {
     static int bootStage = 0;
     
     if (bootStage == 0 && m_BootTimer > 1.0f) {
-        m_Terminal->AddLine("Calculated RAMsize: 66816233991524 Mb");
-        m_Terminal->AddLine("Initiating Setup...");
+        m_Terminal->AddLineWithTypewriter("Calculated RAMsize: 66816233991524 Mb", 80.0f);
+        m_Terminal->AddLineWithTypewriter("Initiating Setup...", 60.0f);
         bootStage++;
     }
-    else if (bootStage == 1 && m_BootTimer > 2.0f) {
-        m_Terminal->AddLine("BIOS load sequence:");
-        m_Terminal->AddLine("  stepfunction(), load_clientside.jss...");
-        m_Terminal->AddLine("  root access obtained!");
+    else if (bootStage == 1 && m_BootTimer > 2.0f && !m_Terminal->IsTyping()) {
+        m_Terminal->AddLineWithTypewriter("BIOS load sequence:", 50.0f);
+        m_Terminal->AddLineWithTypewriter("  stepfunction(), load_clientside.jss...", 80.0f);
+        m_Terminal->AddLineWithTypewriter("  root access obtained!", 70.0f);
         bootStage++;
     }
-    else if (bootStage == 2 && m_BootTimer > 3.5f) {
-        m_Terminal->AddLine("Importing additional Dependencies and utils:");
-        m_Terminal->AddLine("  - FTpea ver.8.4.6 ... [ OK ]");
-        m_Terminal->AddLine("  - SScrack ver.2.1.3 ... [ OK ]");
-        m_Terminal->AddLine("  - Nmap ver.8.9.1 ... [ OK ]");
+    else if (bootStage == 2 && m_BootTimer > 3.5f && !m_Terminal->IsTyping()) {
+        m_Terminal->AddLineWithTypewriter("Importing additional Dependencies and utils:", 60.0f);
+        m_Terminal->AddLineWithTypewriter("  - FTpea ver.8.4.6 ... [ OK ]", 100.0f);
+        m_Terminal->AddLineWithTypewriter("  - SScrack ver.2.1.3 ... [ OK ]", 100.0f);
+        m_Terminal->AddLineWithTypewriter("  - Nmap ver.8.9.1 ... [ OK ]", 100.0f);
         bootStage++;
     }
-    else if (bootStage == 3 && m_BootTimer > 5.0f) {
+    else if (bootStage == 3 && m_BootTimer > 5.0f && !m_Terminal->IsTyping()) {
         m_Terminal->AddLine("");
-        m_Terminal->AddLine("! Setup Complete !");
+        m_Terminal->AddLineWithTypewriter("! Setup Complete !", 40.0f);
         m_Terminal->AddLine("");
         m_Terminal->AddLine("Coal OS - ver 1.4.6");
         m_Terminal->AddLine("Developed by 'Downtime' and 'Dr. Mass'");

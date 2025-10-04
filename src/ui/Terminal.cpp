@@ -4,7 +4,9 @@
 Terminal::Terminal(unsigned int width, unsigned int height)
     : m_Width(width), m_Height(height), m_Prompt(""), 
       m_CursorBlinkTimer(0.0f), m_CursorVisible(true),
-      m_TextColor(0.0f, 1.0f, 0.0f) {  // Default green
+      m_TextColor(1.0f, 0.5f, 0.0f),  // Default green
+      m_IsTyping(false), m_TypewriterTimer(0.0f), 
+      m_TypewriterSpeed(50.0f), m_TypewriterIndex(0) {
     m_MaxVisibleLines = static_cast<unsigned int>((height - PADDING_TOP * 2) / LINE_HEIGHT);
 }
 
@@ -22,6 +24,32 @@ void Terminal::Update(float deltaTime) {
     if (m_CursorBlinkTimer >= CURSOR_BLINK_RATE) {
         m_CursorVisible = !m_CursorVisible;
         m_CursorBlinkTimer = 0.0f;
+    }
+    
+    // Update typewriter effect
+    if (m_IsTyping) {
+        m_TypewriterTimer += deltaTime;
+        float timePerChar = 1.0f / m_TypewriterSpeed;
+        
+        while (m_TypewriterTimer >= timePerChar && m_TypewriterIndex < m_TypewriterBuffer.length()) {
+            m_CurrentTypingLine += m_TypewriterBuffer[m_TypewriterIndex];
+            m_TypewriterIndex++;
+            m_TypewriterTimer -= timePerChar;
+            
+            // Update the last line in the buffer
+            if (!m_Lines.empty()) {
+                m_Lines.back() = m_CurrentTypingLine;
+            }
+        }
+        
+        // Finish typing
+        if (m_TypewriterIndex >= m_TypewriterBuffer.length()) {
+            m_IsTyping = false;
+            m_TypewriterBuffer.clear();
+            m_CurrentTypingLine.clear();
+            m_TypewriterIndex = 0;
+            m_TypewriterTimer = 0.0f;
+        }
     }
 }
 
@@ -85,4 +113,22 @@ void Terminal::Clear() {
 
 void Terminal::SetTextColor(float r, float g, float b) {
     m_TextColor = glm::vec3(r, g, b);
+}
+
+void Terminal::AddLineWithTypewriter(const std::string& line, float charsPerSecond) {
+    if (m_IsTyping) {
+        // If already typing, queue it as a normal line
+        AddLine(line);
+        return;
+    }
+    
+    m_IsTyping = true;
+    m_TypewriterBuffer = line;
+    m_CurrentTypingLine.clear();
+    m_TypewriterIndex = 0;
+    m_TypewriterTimer = 0.0f;
+    m_TypewriterSpeed = charsPerSecond;
+    
+    // Add an empty line that will be filled
+    m_Lines.push_back("");
 }
